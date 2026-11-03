@@ -1,16 +1,8 @@
-
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Android 13 and newer -->
-    <uses-permission
-        android:name="android.permission.READ_MEDIA_IMAGES" />
-
-    <!-- Android 14 and newer: selected photo access -->
-    <uses-permission
-        android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
-
-    <!-- Android 12 and older -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
@@ -31,6 +23,5 @@
             </intent-filter>
 
         </activity>
-
     </application>
 </manifest>
