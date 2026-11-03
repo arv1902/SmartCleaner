@@ -2,6 +2,8 @@ name: Build APK
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ "main", "master" ]
 
 jobs:
   build:
@@ -16,13 +18,25 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Build with Gradle Command Action
-        uses: eskatos/gradle-command-action@v3
-        with:
-          arguments: assembleDebug
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Download and Install Gradle
+        run: |
+          wget -q https://services.gradle.org/distributions/gradle-8.5-bin.zip
+          unzip -q gradle-8.5-bin.zip
+          sudo mv gradle-8.5 /opt/gradle
+          sudo ln -s /opt/gradle/bin/gradle /usr/local/bin/gradle
+
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper --gradle-version 8.5
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
+          name: SmartCleaner-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          
