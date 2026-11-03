@@ -1,3 +1,4 @@
+
 name: Build APK
 
 on:
@@ -8,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -19,7 +21,9 @@ jobs:
           distribution: 'temurin'
 
       - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
+        uses: android-actions/setup-android@v4.0.4
+        with:
+          packages: 'platform-tools'
 
       - name: Download and Install Gradle
         run: |
@@ -39,4 +43,3 @@ jobs:
         with:
           name: SmartCleaner-APK
           path: app/build/outputs/apk/debug/app-debug.apk
-          
