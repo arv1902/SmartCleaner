@@ -21,14 +21,15 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+      - name: Generate Gradle Wrapper
+        run: gradle wrapper --gradle-version 8.5
 
       - name: Build Debug APK
-        run: gradle assembleDebug
+        run: ./gradlew assembleDebug --no-daemon
 
       - name: Upload Compiled APK
         uses: actions/upload-artifact@v4
         with:
           name: SmartCleaner-APK
           path: app/build/outputs/apk/debug/app-debug.apk
+          
